@@ -1,0 +1,679 @@
+/* ---------- Top bar (logo à droite) ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  /* Logo de 64 px calé en haut (12 px, comme guillard-it.com) pour que le « GC »
+     soit pile au même endroit sur les deux sites ; la ligne « CORPORATION »
+     prend la place de la marge du bas. Barre : 12 + 64 + 4 = 80 px, comme guillard-it.com. */
+  padding: 12px clamp(1rem, 4vw, 3rem) 4px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav {
+  display: flex;
+  gap: clamp(0.75rem, 3vw, 2rem);
+}
+
+.nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.nav a:hover { color: var(--brand); }
+
+/* Le logo ne se fait jamais écraser quand la place manque (zoom fort, petit écran) */
+.brand { flex-shrink: 0; }
+
+.brand img {
+  display: block;
+  max-width: none;
+  /* Logo plus haut que celui de Guillard IT (ligne « CORPORATION » en plus) :
+     64 px donnent au « GC » exactement la même taille que sur guillard-it.com (56 px). */
+  height: 64px;
+  width: auto;
+}
+
+/* ---------- Layout ---------- */
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+}
+
+.section { padding: clamp(3.5rem, 8vw, 6rem) 0; }
+.section-alt { background: var(--brand-soft); }
+
+h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  color: var(--brand-dark);
+  letter-spacing: -0.01em;
+}
+
+.section-sub {
+  margin: 0 0 2.5rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 60%, #1f3c78 100%);
+  color: #fff;
+  padding: clamp(1.5rem, 4vw, 2.5rem) 0;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.hero h1 {
+  margin: 0 0 1.25rem;
+  max-width: 16ch;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0 0 2.25rem;
+  max-width: 52ch;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.55;
+  opacity: 0.92;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--brand-dark);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------- Certifications ---------- */
+.certs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.cert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.75rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.cert img {
+  height: 120px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin-bottom: 1.25rem;
+}
+
+.cert-domain {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--brand);
+}
+
+.cert-name {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* ---------- Clients ---------- */
+.clients {
+  list-style: none;
+  margin: 1.5rem 0 3.5rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.5rem, 5vw, 4rem);
+}
+
+.clients img {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.7;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.clients img:hover {
+  filter: none;
+  opacity: 1;
+}
+
+/* ---------- Témoignages ---------- */
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 1.5rem;
+}
+
+.testimonial {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.75rem;
+  background: #fff;
+  border-radius: 16px;
+  border-top: 4px solid var(--brand);
+  box-shadow: 0 2px 12px rgba(12, 32, 72, 0.08);
+}
+
+blockquote {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+blockquote p { margin: 0 0 0.75rem; }
+blockquote p:last-child { margin-bottom: 0; }
+
+blockquote p:first-child::before {
+  content: '“';
+  color: var(--brand);
+  font-weight: 800;
+  margin-right: 0.15em;
+}
+
+blockquote p:last-child::after {
+  content: '”';
+  color: var(--brand);
+  font-weight: 800;
+  margin-left: 0.15em;
+}
+
+figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.avatar {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-initials {
+  display: grid;
+  place-items: center;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 700;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 700;
+  color: var(--brand-dark);
+  text-decoration: none;
+}
+
+a.name:hover { text-decoration: underline; }
+
+.role {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.source {
+  margin-left: auto;
+  flex: none;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.source:hover { color: var(--brand); }
+
+/* ---------- Contact ---------- */
+.contact {
+  background: var(--brand);
+  color: #fff;
+  text-align: center;
+}
+
+.contact h2 { color: #fff; }
+.contact .section-sub { color: rgba(255, 255, 255, 0.85); }
+.btn-light { font-size: 1.1rem; }
+
+/* ---------- Footer ---------- */
+.footer {
+  padding: 1.5rem 0;
+  background: var(--brand-dark);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .brand img { height: 46px; }
+  .topbar { padding-block: 12px 6px; } /* 12 + 46 + 6 = 64 px, comme guillard-it.com sur mobile */
+  .nav a { font-size: 0.85rem; }
+  .source { font-size: 0; } /* texte masqué, mais la carte reste cliquable */
+}
+
+/* ---------- Animation du slogan (fadeInDown, comme l'ancien site) ---------- */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translate3d(0, -100%, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.hero .eyebrow,
+.hero h1,
+.hero .lead,
+.hero .btn {
+  animation: fadeInDown 1s ease both;
+}
+
+.hero h1    { animation-delay: 0.15s; }
+.hero .lead { animation-delay: 0.35s; }
+.hero .btn  { animation-delay: 0.55s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .eyebrow, .hero h1, .hero .lead, .hero .btn { animation: none; }
+}
+
+/* ---------- Photo dans le hero ---------- */
+.hero { padding-bottom: 0; }
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 2rem;
+}
+
+.hero-text { align-self: center; padding-bottom: 2rem; }
+
+.hero-photo {
+  display: block;
+  justify-self: center;
+  height: clamp(520px, 72vw, 900px);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35));
+  animation: fadeIn 1.2s ease 0.4s both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (max-width: 760px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 0; }
+  .hero-text { padding-bottom: 2rem; }
+  .hero-photo { height: 520px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo { animation: none; }
+}
+
+/* Dernier avis seul sur sa ligne : pleine largeur */
+.testimonial:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* ---------- Expertise : certifications + expérience ---------- */
+#expertise h2 { margin-bottom: 2rem; }
+
+.certs { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+
+.cert-xp img { padding: 14px; }
+
+/* Carte à plusieurs logos, tous à la même taille */
+.cert-logos {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 22px;
+}
+.cert-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(22px + 1.25rem);
+}
+.cert .cert-logos img {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  padding: 0;
+  margin: 0;
+}
+
+/* ---------- Sélecteur de langue ---------- */
+.topbar-right {
+  /* Menu recentré sur la même ligne que guillard-it.com malgré la marge asymétrique */
+  position: relative;
+  top: -4px;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2.5vw, 1.75rem);
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lang-switch:hover { border-color: var(--brand); }
+.lang-switch .active { color: var(--brand); font-weight: 800; }
+.lang-switch .sep { opacity: 0.4; }
+
+.translated-note {
+  margin: 1rem 0 0;
+  text-align: right;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* Mobile : on garde logo + langue, les liens du menu sont masqués */
+@media (max-width: 600px) {
+  .nav { display: none; }
+}
+
+/* ---------- Hero mobile : photo en grand, texte centré par-dessus (comme l'ancien site) ---------- */
+@media (max-width: 760px) {
+  .hero {
+    position: relative;
+    padding: 0;
+    min-height: calc(100svh - 64px);
+  }
+
+  .hero-inner {
+    display: block;
+    min-height: inherit;
+  }
+
+  .hero-photo {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 94%;
+    max-width: none;
+    filter: none;
+  }
+
+  /* Voile pour garder le texte lisible sur la photo */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      rgba(7, 21, 48, 0.1) 0%,
+      rgba(7, 21, 48, 0.72) 32%,
+      rgba(7, 21, 48, 0.72) 68%,
+      rgba(7, 21, 48, 0.1) 100%
+    );
+  }
+
+  .hero-text {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1.25rem;
+    text-align: center;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  }
+
+  .hero h1 { max-width: none; }
+  .hero .lead { margin-bottom: 1.75rem; }
+  .hero .btn { text-shadow: none; }
+}
+
+/* ---------- À propos ---------- */
+.about-inner {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.about-facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.about-facts li {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.4rem;
+  border-left: 4px solid var(--brand);
+  background: #fff;
+  border-radius: 0 12px 12px 0;
+}
+
+.fact-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--brand);
+  line-height: 1.1;
+}
+
+.fact-label {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 760px) {
+  .about-inner { grid-template-columns: 1fr; }
+}
+
+.about-text h2 { margin-bottom: 1.25rem; }
+
+.about-text p {
+  margin: 0 0 1rem;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.about-text p:last-child { margin-bottom: 0; }
+
+
+/* ---------- Contact : e-mail + LinkedIn ---------- */
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  font-size: 1.1rem;
+}
+
+.btn-outline img { border-radius: 3px; }
+
+/* ---------- Certifications vérifiables sur Credly ---------- */
+.cert { position: relative; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+
+/* Lien invisible qui couvre toute la carte : on clique n'importe où pour ouvrir Credly */
+.cert-verify {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.cert:has(.cert-verify):hover {
+  transform: translateY(-4px);
+  border-color: #c5cfdf;
+  box-shadow: 0 12px 28px rgba(12, 32, 72, 0.12);
+}
+.cert-verify:focus-visible { outline: none; }
+.cert:has(.cert-verify:focus-visible) { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cert:has(.cert-verify):hover { transform: none; }
+}
+
+/* ---------- Pied de page + mentions légales ---------- */
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem 1.5rem;
+}
+.footer-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.footer-link:hover { color: #fff; }
+
+.legal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(7, 21, 48, 0.6);
+  animation: fadeIn 0.2s ease both;
+}
+.legal {
+  position: relative;
+  width: min(100%, 560px);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  padding: 2rem;
+  border-radius: 16px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.legal h2 { margin: 0 0 1rem; font-size: 1.4rem; color: var(--brand); }
+.legal h3 { margin: 1.25rem 0 0.25rem; font-size: 0.95rem; color: var(--brand); }
+.legal p { margin: 0; color: var(--muted); }
+.legal a { color: var(--brand); }
+.legal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-size: 1rem;
+  cursor: pointer;
+}
+.legal-close:hover { background: var(--line); }
+
+/* Mobile : menu recentré (doit venir après la règle .topbar-right de base) */
+@media (max-width: 520px) {
+  .topbar-right { top: -3px; }
+}
+
+/* ---------- Recommandations cliquables (vers LinkedIn / LeHibou), comme les certifications ---------- */
+.testimonial {
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+/* Le lien « via … » couvre toute la carte : on clique n'importe où pour ouvrir la source */
+.source::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+}
+.testimonial:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(12, 32, 72, 0.14);
+}
+.testimonial:hover .source { color: var(--brand); }
+.source:focus-visible { outline: none; }
+.testimonial:has(.source:focus-visible) { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial:hover { transform: none; }
+}

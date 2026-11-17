@@ -1,0 +1,144 @@
+<header class="topbar">
+  <a href="#top" class="brand" [attr.aria-label]="t.homeLabel">
+    <img src="assets/images/logo-guillard-corporation.png" alt="Guillard Corporation" />
+  </a>
+  <div class="topbar-right">
+    <nav class="nav">
+      <a href="#about">{{ t.navAbout }}</a>
+      <a href="#expertise">{{ t.navExpertise }}</a>
+      <a href="#references">{{ t.navReferences }}</a>
+      <a href="#contact">{{ t.navContact }}</a>
+    </nav>
+    <button type="button" class="lang-switch" (click)="toggleLang()" [attr.aria-label]="t.switchLabel" [title]="t.switchLabel">
+      <span [class.active]="lang === 'fr'">FR</span>
+      <span class="sep">|</span>
+      <span [class.active]="lang === 'en'">EN</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Slogan -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">{{ t.eyebrow }}</p>
+        <h1>{{ t.title }}</h1>
+        <p class="lead">{{ t.lead }}</p>
+        <a class="btn" [href]="'mailto:' + email">{{ t.cta }}</a>
+      </div>
+      <img class="hero-photo" src="assets/images/profil/profil1_compressed4.png" alt="Camille Guillard" />
+    </div>
+  </section>
+
+  <!-- À propos -->
+  <section id="about" class="section section-alt about">
+    <div class="wrap about-inner">
+      <div class="about-text">
+        <h2>{{ t.about }}</h2>
+        <p *ngFor="let para of t.aboutText">{{ para }}</p>
+      </div>
+      <ul class="about-facts">
+        <li *ngFor="let f of t.aboutFacts">
+          <span class="fact-value">{{ f.value }}</span>
+          <span class="fact-label">{{ f.label }}</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Expertise -->
+  <section id="expertise" class="section">
+    <div class="wrap">
+      <h2>{{ t.expertise }}</h2>
+      <ul class="certs">
+        <li *ngFor="let c of certifications" class="cert" [class.cert-xp]="c.kind === 'xp'">
+          <div *ngIf="c.logos; else single" class="cert-logos">
+            <div *ngFor="let l of c.logos" class="cert-logo">
+              <img [src]="l.src" alt="" loading="lazy" />
+              <span class="cert-domain">{{ l.label }}</span>
+            </div>
+          </div>
+          <ng-template #single>
+            <img [src]="c.image" [alt]="c.domain" loading="lazy" />
+            <span class="cert-domain">{{ c.domain }}</span>
+          </ng-template>
+          <span *ngIf="c.name[lang]" class="cert-name">{{ c.name[lang] }}</span>
+          <a *ngIf="c.kind === 'cert'" class="cert-verify" [href]="credly" target="_blank" rel="noopener"
+             [attr.aria-label]="t.verify + ' – ' + c.name[lang]" [title]="t.verify"></a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Clients + témoignages -->
+  <section id="references" class="section section-alt">
+    <div class="wrap">
+      <h2>{{ t.trusted }}</h2>
+      <ul class="clients">
+        <li *ngFor="let cl of clients">
+          <img [src]="cl.logo" [alt]="cl.name" [title]="cl.name" loading="lazy" />
+        </li>
+      </ul>
+
+      <div class="testimonials">
+        <figure *ngFor="let tm of testimonials" class="testimonial">
+          <blockquote [attr.lang]="lang">
+            <p *ngFor="let para of tm.text[lang]">{{ para }}</p>
+          </blockquote>
+          <figcaption>
+            <span class="avatar avatar-initials">{{ initials(tm.name) }}</span>
+            <div class="who">
+              <span class="name">{{ tm.name }}</span>
+              <span class="role">{{ tm.role }}</span>
+            </div>
+            <a class="source" [href]="tm.sourceUrl" target="_blank" rel="noopener">via {{ tm.source }}</a>
+          </figcaption>
+        </figure>
+      </div>
+      <p *ngIf="t.translated" class="translated-note">{{ t.translated }}</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section contact">
+    <div class="wrap">
+      <h2>{{ t.contactTitle }}</h2>
+      <p class="section-sub">{{ t.contactSub }}</p>
+      <div class="contact-actions">
+        <a class="btn btn-light" [href]="'mailto:' + email">{{ email }}</a>
+        <a class="btn btn-outline" [href]="linkedin" target="_blank" rel="noopener">
+          <img src="assets/images/icons/linkedin.png" alt="" width="20" height="20" />
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span>© {{ year }} {{ t.footerCompany }}</span>
+    <button type="button" class="footer-link" (click)="legalOpen = true">{{ t.legal }}</button>
+  </div>
+</footer>
+
+<!-- Mentions légales -->
+<div *ngIf="legalOpen" class="legal-backdrop" (click)="legalOpen = false">
+  <div class="legal" role="dialog" aria-modal="true" aria-labelledby="legal-title" lang="fr" (click)="$event.stopPropagation()">
+    <button type="button" class="legal-close" (click)="legalOpen = false" [attr.aria-label]="t.close">✕</button>
+    <h2 id="legal-title">Mentions légales</h2>
+    <h3>Éditeur du site</h3>
+    <p>
+      {{ company.name }}, {{ company.form }} au capital de {{ company.capital }}<br />
+      Siège social : {{ company.address }}<br />
+      {{ company.rcs }}<br />
+      TVA intracommunautaire : {{ company.vat }}<br />
+      Contact : <a [href]="'mailto:' + email">{{ email }}</a>
+    </p>
+    <h3>Directeur de la publication</h3>
+    <p>{{ company.director }}</p>
+    <h3>Hébergement</h3>
+    <p>{{ company.host }}</p>
+  </div>
+</div>
